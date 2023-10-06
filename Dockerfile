@@ -1,4 +1,4 @@
-FROM nginx:1.23-alpine3.18
+FROM docker.io/library/nginx:1.23-alpine3.18
 
 ENV SERVER_NAME="rev-prox.com"
 ENV SSL_CERT=""
