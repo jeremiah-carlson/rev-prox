@@ -1,6 +1,7 @@
-FROM docker.io/library/nginx:1.23-alpine3.18
+FROM docker.io/library/nginx:1.23-alpine3.17
 
 ENV SERVER_NAME="rev-prox.com"
+ENV UPSTREAM_API="server 127.0.0.1:80;"
 ENV SSL_CERT=""
 ENV SSL_PK=""
 
@@ -12,6 +13,9 @@ COPY ./app/* /usr/local/app/
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/proxy.conf /etc/nginx/proxy.conf
 COPY ./nginx/conf.d /etc/nginx/conf.d
+
+# Write upstream servers
+RUN echo $UPSTREAM_API > /etc/nginx/conf.d/upstream/api.conf
 
 # Get certs
 RUN echo $SSL_CERT > /etc/ssl/certs/$SERVER_NAME.crt
